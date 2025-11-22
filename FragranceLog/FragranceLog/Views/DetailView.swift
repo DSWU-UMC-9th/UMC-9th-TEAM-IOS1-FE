@@ -99,19 +99,7 @@ struct DetailView: View {
                 .padding(.leading, 4)
 
             VStack(spacing: 16) {
-                Button(action: {
-                    // TODO: 후기 작성
-                }) {
-                    HStack(spacing: 10) {
-                        Image(.iconPlus)
-                        Text("후기 작성하기")
-                            .font(.zen16)
-                            .foregroundStyle(.color1)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .glassEffect(.regular.tint(.color9.opacity(0.6)))
-                }
+                ReviewButton()
 
                 ReviewItem(rating: 3.5)
 
