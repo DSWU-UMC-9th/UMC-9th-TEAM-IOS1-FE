@@ -47,12 +47,10 @@ class SignupViewModel: ObservableObject {
             switch result {
             case .success(let response):
 
-                // 성공 응답 (201)
-                if response.statusCode == 201 {
-                    if let success = try? JSONDecoder().decode(SignupResponse.self, from: response.data) {
-                        DispatchQueue.main.async {
-                            self.isSignupSuccess = true
-                        }
+                // 성공 응답
+                if (200..<300).contains(response.statusCode) {
+                    DispatchQueue.main.async {
+                        self.isSignupSuccess = true
                     }
                     return
                 }

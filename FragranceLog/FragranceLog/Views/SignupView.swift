@@ -39,7 +39,9 @@ struct SignupView: View {
         .ignoresSafeArea()
         .onChange(of: viewModel.isSignupSuccess) { success in
             if success {
-                router.push(.login)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    router.push(.login)
+                }
             }
         }
         .navigationBarBackButtonHidden()
