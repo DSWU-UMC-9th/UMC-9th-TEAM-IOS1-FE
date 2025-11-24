@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5997B8752ED408BB00C6DE9E /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 5997B8742ED408BB00C6DE9E /* Moya */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		23650A092EC72C56006C4BD5 /* FragranceLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FragranceLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5997B8752ED408BB00C6DE9E /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = FragranceLog;
 			packageProductDependencies = (
+				5997B8742ED408BB00C6DE9E /* Moya */,
 			);
 			productName = FragranceLog;
 			productReference = 23650A092EC72C56006C4BD5 /* FragranceLog.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = 23650A002EC72C56006C4BD5;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5997B8732ED408BB00C6DE9E /* XCRemoteSwiftPackageReference "Moya" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 23650A0A2EC72C56006C4BD5 /* Products */;
 			projectDirPath = "";
@@ -347,6 +356,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5997B8732ED408BB00C6DE9E /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5997B8742ED408BB00C6DE9E /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5997B8732ED408BB00C6DE9E /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 23650A012EC72C56006C4BD5 /* Project object */;
 }
