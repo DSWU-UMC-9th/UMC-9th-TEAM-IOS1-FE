@@ -11,7 +11,7 @@ import SwiftUI
 struct FragranceLogApp: App {
     var body: some Scene {
         WindowGroup {
-            OnboardingTabContainer()
+            DetailView(perfumeId: 3)
         }
     }
 }

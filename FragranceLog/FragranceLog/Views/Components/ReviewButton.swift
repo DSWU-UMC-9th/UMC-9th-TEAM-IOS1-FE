@@ -9,19 +9,32 @@ import SwiftUI
 
 struct ReviewButton: View {
     @State var writeMode: Bool = false
-    @State var review: String = ""
+
+    @StateObject var vm: DetailViewModel
+    let perfumeId: Int
 
     var body: some View {
         if writeMode {
             VStack(spacing: 13) {
-                StarRating(size: .large)
+                HStack(spacing: 1) {
+                    ForEach(0 ..< 5, id: \.self) { index in
+                        Button(action: {
+                            vm.score = index + 1
+                        }) {
+                            Image(index < vm.score ? .imgFillL : .imgEmptyL)
+                                .frame(width: 38, height: 40)
+                                .glassEffect()
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
 
-                TextEditor(text: $review)
+                TextEditor(text: $vm.content)
                     .font(.robotoRegular16)
                     .frame(height: 110)
                     .scrollContentBackground(.hidden)
                     .background(alignment: .topLeading) {
-                        if review.isEmpty {
+                        if vm.content.isEmpty {
                             Text("리뷰를 남겨주세요!")
                                 .font(.robotoRegular16)
                                 .foregroundStyle(.gray)
@@ -32,14 +45,14 @@ struct ReviewButton: View {
                 HStack {
                     Spacer()
 
-                    Text("\(review.count)/1,000")
+                    Text("\(vm.content.count)/1,000")
                         .font(.robotoRegular14)
                         .foregroundStyle(.gray)
                         .padding(.trailing, 15)
                         .padding(.bottom, 15)
-                        .onChange(of: review) {
-                            if review.count > 1000 {
-                                review = String(review.prefix(1000))
+                        .onChange(of: vm.content) {
+                            if vm.content.count > 1000 {
+                                vm.content = String(vm.content.prefix(1000))
                             }
                         }
                 }
@@ -50,7 +63,7 @@ struct ReviewButton: View {
                     Spacer()
 
                     Button(action: {
-                        // TODO: 댓글 등록
+                        vm.postReview(perfumeId: perfumeId)
                         withAnimation {
                             writeMode.toggle()
                         }
@@ -86,6 +99,6 @@ struct ReviewButton: View {
     }
 }
 
-#Preview {
-    ReviewButton()
-}
+// #Preview {
+//    ReviewButton()
+// }

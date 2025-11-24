@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct DetailView: View {
+    let perfumeId: Int
+    @StateObject private var vm = DetailViewModel()
+
     var body: some View {
         ZStack {
             Color.color3
@@ -99,7 +102,7 @@ struct DetailView: View {
                 .padding(.leading, 4)
 
             VStack(spacing: 16) {
-                ReviewButton()
+                ReviewButton(vm: vm, perfumeId: perfumeId)
 
                 ReviewItem(rating: 3.5)
 
@@ -112,5 +115,5 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView()
+    DetailView(perfumeId: 2)
 }
