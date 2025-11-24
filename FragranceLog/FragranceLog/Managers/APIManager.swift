@@ -19,8 +19,15 @@ class APIManager: @unchecked Sendable {
     
     /// 실제 API 요청용 MoyaProvider
     public func createProvider<T: TargetType>(for targetType: T.Type) -> MoyaProvider<T> {
+        let tokenPlugin = AccessTokenPlugin { _ in
+            return KeychainManager.shared.loadToken() ?? ""
+        }
+
         return MoyaProvider<T>(
-            plugins: [loggerPlugin]
+            plugins: [
+                NetworkLoggerPlugin(),
+                tokenPlugin
+            ]
         )
     }
     

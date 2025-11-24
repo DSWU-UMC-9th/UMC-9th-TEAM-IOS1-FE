@@ -41,6 +41,11 @@ class LoginViewModel: ObservableObject {
                 // 성공 응답 200
                 if response.statusCode == 200 {
                     if let success = try? JSONDecoder().decode(LoginResponse.self, from: response.data) {
+
+                        if let token = success.data?.token {
+                            KeychainManager.shared.saveToken(token)
+                        }
+
                         DispatchQueue.main.async {
                             self.isLoginSuccess = true
                         }
