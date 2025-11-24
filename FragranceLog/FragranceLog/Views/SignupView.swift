@@ -62,6 +62,9 @@ struct SignupView: View {
             InputView{
                 TextField("아이디를 입력하세요", text: $viewModel.username)
                     .font(.robotoLight12)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
             }
             
             // 아이디 입력 관련 에러
@@ -76,6 +79,9 @@ struct SignupView: View {
             InputView{
                 SecureField("비밀번호를 입력하세요", text: $viewModel.password)
                     .font(.robotoLight12)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
             }
             
             // 비밀번호 입력 관련 에러
@@ -90,6 +96,9 @@ struct SignupView: View {
             InputView{
                 SecureField("비밀번호를 한 번 더 입력하세요", text: $viewModel.confirmPassword)
                     .font(.robotoLight12)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
             }
             
             // 비밀번호 확인용 입력 관련 에러

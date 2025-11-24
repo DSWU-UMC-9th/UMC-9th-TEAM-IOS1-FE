@@ -60,10 +60,16 @@ struct LoginView: View {
             InputView{
                 TextField("아이디를 입력하세요", text: $viewModel.username)
                     .font(.robotoLight12)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
             }
             InputView{
                 SecureField("비밀번호를 입력하세요", text: $viewModel.password)
                     .font(.robotoLight12)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
             }
             
             // 아이디 입력 관련 에러
