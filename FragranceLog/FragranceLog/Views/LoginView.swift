@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
-    
-    @State var username: String = ""
-    @State var password: String = ""
+    @EnvironmentObject var router: NavigationRouter<OnboardingRoute>
+    @StateObject private var viewModel = LoginViewModel()
     
     var body: some View {
         ZStack {
@@ -38,6 +37,12 @@ struct LoginView: View {
         }
         .foregroundStyle(.black)
         .ignoresSafeArea()
+        .onChange(of: viewModel.isLoginSuccess) { success in
+            if success {
+                // TODO: 메인 페이지 이동
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
     
     private var InfoGroup: some View {
@@ -53,12 +58,36 @@ struct LoginView: View {
     private var InputGroup: some View {
         VStack(spacing: 16) {
             InputView{
-                TextField("아이디를 입력하세요", text: $username)
+                TextField("아이디를 입력하세요", text: $viewModel.username)
                     .font(.robotoLight12)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
             }
             InputView{
-                SecureField("비밀번호를 입력하세요", text: $password)
+                SecureField("비밀번호를 입력하세요", text: $viewModel.password)
                     .font(.robotoLight12)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
+            }
+            
+            // 아이디 입력 관련 에러
+            if let error = viewModel.usernameError {
+                Text(error)
+                    .font(.robotoRegular14)
+                    .foregroundColor(.color5)
+                    .padding(.top, 16)
+                    .padding(.bottom, 16)
+            }
+            
+            // 비밀번호 관련 에러
+            if let error = viewModel.passwordError {
+                Text(error)
+                    .font(.robotoRegular14)
+                    .foregroundColor(.color5)
+                    .padding(.top, 16)
+                    .padding(.bottom, 16)
             }
         }
         .padding(.horizontal, 24)
@@ -68,7 +97,7 @@ struct LoginView: View {
         VStack(alignment: .center, spacing: 24) {
             
             Button(action: {
-                // TODO: 로그인
+                viewModel.login()
             }) {
                 ZStack {
                     // Glass 네모
@@ -123,7 +152,7 @@ struct LoginView: View {
             }
             
             Button(action: {
-                // TODO: 회원가입 화면으로 이동
+                router.push(.signup)
             }) {
                 ZStack {
                     // Glass 네모
@@ -166,4 +195,5 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
+        .environmentObject(NavigationRouter<OnboardingRoute>())
 }

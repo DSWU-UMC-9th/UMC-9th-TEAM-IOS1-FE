@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct SignupView: View {
-    @State var username: String = ""
-    @State var password: String = ""
-    @State var rePassword: String = ""
+    @EnvironmentObject var router: NavigationRouter<OnboardingRoute>
+    @StateObject private var viewModel = SignupViewModel()
         
     var body: some View {
         ZStack {
@@ -38,6 +37,14 @@ struct SignupView: View {
         }
         .foregroundStyle(.black)
         .ignoresSafeArea()
+        .onChange(of: viewModel.isSignupSuccess) { success in
+            if success {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    router.push(.login)
+                }
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
     
     private var InfoGroup: some View {
@@ -53,25 +60,55 @@ struct SignupView: View {
     private var InputGroup: some View {
         VStack(spacing: 16) {
             InputView{
-                TextField("아이디를 입력하세요", text: $username)
+                TextField("아이디를 입력하세요", text: $viewModel.username)
                     .font(.robotoLight12)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
             }
             
-            // TODO: 회원가입 API 연결 후 에러 뜨게 할 예정
-            
+            // 아이디 입력 관련 에러
+            if let error = viewModel.usernameError {
+                Text(error)
+                    .font(.robotoRegular14)
+                    .foregroundColor(.color5)
+                    .padding(.top, 16)
+                    .padding(.bottom, 16)
+            }
+                        
             InputView{
-                SecureField("비밀번호를 입력하세요", text: $password)
+                SecureField("비밀번호를 입력하세요", text: $viewModel.password)
                     .font(.robotoLight12)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
             }
             
-            // TODO: 회원가입 API 연결 후 에러 뜨게 할 예정
+            // 비밀번호 입력 관련 에러
+            if let error = viewModel.passwordError {
+                Text(error)
+                    .font(.robotoRegular14)
+                    .foregroundColor(.color5)
+                    .padding(.top, 16)
+                    .padding(.bottom, 16)
+            }
 
             InputView{
-                SecureField("비밀번호를 한 번 더 입력하세요", text: $rePassword)
+                SecureField("비밀번호를 한 번 더 입력하세요", text: $viewModel.confirmPassword)
                     .font(.robotoLight12)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
             }
             
-            // TODO: 회원가입 API 연결 후 에러 뜨게 할 예정
+            // 비밀번호 확인용 입력 관련 에러
+            if let error = viewModel.confirmPasswordError {
+                Text(error)
+                    .font(.robotoRegular14)
+                    .foregroundColor(.color5)
+                    .padding(.top, 16)
+                    .padding(.bottom, 16)
+            }
 
         }
         .padding(.horizontal, 24)
@@ -81,7 +118,7 @@ struct SignupView: View {
         VStack(alignment: .center, spacing: 24) {
             
             Button(action: {
-                // TODO: 회원가입
+                viewModel.signup()
             }) {
                 ZStack {
                     // Glass 네모
@@ -136,7 +173,7 @@ struct SignupView: View {
             }
             
             Button(action: {
-                // TODO: 로그인 화면으로 이동
+                router.push(.login)
             }) {
                 ZStack {
                     // Glass 네모
@@ -179,4 +216,5 @@ struct SignupView: View {
 
 #Preview {
     SignupView()
+        .environmentObject(NavigationRouter<OnboardingRoute>())
 }
