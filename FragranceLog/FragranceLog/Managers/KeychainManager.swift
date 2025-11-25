@@ -23,4 +23,17 @@ final class KeychainManager {
     func deleteToken() {
         UserDefaults.standard.removeObject(forKey: "accessToken")
     }
+    
+    func saveUserId(_ id: Int) {
+        UserDefaults.standard.set(id, forKey: "userId")
+    }
+
+    func loadUserId() -> Int? {
+        let value = UserDefaults.standard.integer(forKey: "userId")
+        return value == 0 ? nil : value
+    }
+
+    func deleteUserId() {
+        UserDefaults.standard.removeObject(forKey: "userId")
+    }
 }
