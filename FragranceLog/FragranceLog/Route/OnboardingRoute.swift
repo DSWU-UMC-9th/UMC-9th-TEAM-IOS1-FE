@@ -10,4 +10,6 @@ import Foundation
 enum OnboardingRoute: Hashable {
     case login
     case signup
+    
+    case main
 }

@@ -40,7 +40,7 @@ struct LoginView: View {
         .onChange(of: viewModel.isLoginSuccess) { success in
             print("userId:", KeychainManager.shared.loadUserId() ?? -1)
             if success {
-                // TODO: 메인 페이지 이동
+                router.push(.main)
             }
         }
         .navigationBarBackButtonHidden()
