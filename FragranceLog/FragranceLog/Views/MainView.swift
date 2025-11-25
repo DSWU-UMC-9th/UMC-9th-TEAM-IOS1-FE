@@ -34,6 +34,7 @@ struct MainView: View {
         }
         .foregroundStyle(.black)
         .ignoresSafeArea()
+        .navigationBarBackButtonHidden()
     }
     
     private var TopGroup: some View {
