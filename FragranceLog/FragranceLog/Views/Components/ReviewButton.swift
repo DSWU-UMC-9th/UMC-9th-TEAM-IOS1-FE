@@ -66,7 +66,7 @@ struct ReviewButton: View {
             }
 
             HStack {
-                Text("iddd****")
+                Text(vm.currentMaskedUsername)
 
                 Spacer()
 
@@ -121,10 +121,10 @@ struct ReviewButton: View {
                 .padding(.vertical, 10)
 
             HStack {
-                Text("iddd****")
+                Text(vm.currentMaskedUsername)
                     .font(.zen16)
                 Spacer()
-                Text("2025. 01. 01")
+                Text(vm.myReview?.updatedDate ?? "—")
                     .font(.zen16)
             }
             .padding(.vertical, 10)

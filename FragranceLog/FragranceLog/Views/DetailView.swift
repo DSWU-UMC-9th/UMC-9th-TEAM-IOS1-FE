@@ -56,7 +56,7 @@ struct DetailView: View {
             ZStack {
                 HStack(spacing: 7) {
                     StarRating(size: .medium, fixRating: vm.averageRating)
-                    Text("\(vm.averageRating)")
+                    Text(String(format: "%.1f", vm.averageRating))
                         .font(.zen16)
                         .padding(.top, 5)
                 }

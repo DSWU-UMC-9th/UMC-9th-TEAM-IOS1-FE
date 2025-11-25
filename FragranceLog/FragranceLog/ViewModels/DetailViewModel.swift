@@ -25,7 +25,8 @@ class DetailViewModel: ObservableObject {
     @Published var reviews: [ReviewResponseData] = []
 
     @Published var myReviewId: Int? = nil
-    private let currentMaskedUsername: String
+    @Published var currentMaskedUsername: String
+    @Published var myReview: ReviewResponseData? = nil
 
     private let perfumeId: Int
     private let userId: Int = KeychainManager.shared.loadUserId() ?? -1
@@ -102,15 +103,13 @@ class DetailViewModel: ObservableObject {
                         self.reviews = data.reviews
 
                         if let my = data.reviews.first(where: { $0.maskedUsername == self.currentMaskedUsername }) {
+                            self.myReview = my
                             self.myReviewId = my.id
                             self.score = my.rating
                             self.content = my.content
                             self.isCompleted = true
-                            self.writeMode = false
                         } else {
-                            self.myReviewId = nil
-                            self.score = 0
-                            self.content = ""
+                            self.myReview = nil
                             self.isCompleted = false
                         }
                     }

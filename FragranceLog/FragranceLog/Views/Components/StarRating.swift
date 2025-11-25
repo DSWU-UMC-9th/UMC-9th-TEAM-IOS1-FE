@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum StarSize {
-    case small, medium, large
+    case small, medium
 
     var fill: ImageResource {
         switch self {
@@ -16,8 +16,6 @@ enum StarSize {
             return .imgFillS
         case .medium:
             return .imgFillM
-        case .large:
-            return .imgFillL
         }
     }
 
@@ -27,8 +25,6 @@ enum StarSize {
             return .imgEmptyS
         case .medium:
             return .imgEmptyM
-        case .large:
-            return .imgEmptyL
         }
     }
 
@@ -38,8 +34,6 @@ enum StarSize {
             return -8
         case .medium:
             return -7
-        case .large:
-            return 1
         }
     }
 }
@@ -52,32 +46,19 @@ struct StarRating: View {
 
     var body: some View {
         HStack(spacing: size.spacing) {
-            if size == .large {
-                ForEach(0..<5, id: \.self) { index in
-                    Button(action: {
-                        rating = index + 1
-                    }) {
-                        Image(index < rating ? size.fill : size.empty)
-                            .frame(width: 38, height: 40)
-                            .glassEffect()
-                    }
-                    .buttonStyle(.plain)
-                }
-            } else {
-                let filledCount = max(0, min(5, Int(floor(fixRating))))
-                let emptyCount = max(0, 5 - filledCount)
+            let filledCount = max(0, min(5, Int(floor(fixRating))))
+            let emptyCount = max(0, 5 - filledCount)
 
-                ForEach(0..<filledCount, id: \.self) { _ in
-                    Image(size.fill)
-                }
-                ForEach(0..<emptyCount, id: \.self) { _ in
-                    Image(size.empty)
-                }
+            ForEach(0..<filledCount, id: \.self) { _ in
+                Image(size.fill)
+            }
+            ForEach(0..<emptyCount, id: \.self) { _ in
+                Image(size.empty)
             }
         }
     }
 }
 
 #Preview {
-    StarRating(size: .large)
+    StarRating(size: .medium)
 }
