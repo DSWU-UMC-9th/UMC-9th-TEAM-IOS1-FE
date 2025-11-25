@@ -114,7 +114,7 @@ struct DetailView: View {
                 ReviewButton(vm: vm)
 
                 ForEach(vm.reviews, id: \.id) { review in
-                    ReviewItem(rating: review.rating, vm: vm)
+                    ReviewItem(item: review, vm: vm)
                 }
             }
         }
