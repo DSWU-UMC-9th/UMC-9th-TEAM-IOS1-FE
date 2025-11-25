@@ -9,4 +9,6 @@ import Foundation
 
 enum MainRoute: Hashable {
     case main
+    case detail(perfumeId: Int)
+    case mypage
 }

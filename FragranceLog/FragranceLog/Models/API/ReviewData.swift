@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct ReviewData: Codable {
+struct ReviewData: Codable, Hashable {
+    let id = UUID()
     let score: Int
     let content: String
 }

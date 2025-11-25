@@ -11,6 +11,7 @@ import Moya
 enum ReviewRouter {
     case postReview(perfumeId: Int, userId: Int, data: ReviewData)
     case patchReview(perfumeId: Int, reviewId: Int, userId: Int, data: ReviewData)
+    case getDetail(perfumeId: Int)
 }
 
 extension ReviewRouter: APITargetType {
@@ -20,6 +21,8 @@ extension ReviewRouter: APITargetType {
             return "/perfumes/\(perfumeId)/reviews"
         case .patchReview(let perfumeId, let reviewId, _, _):
             return "/perfumes/\(perfumeId)/reviews/\(reviewId)"
+        case .getDetail(let perfumeId):
+            return "/perfumes/\(perfumeId)"
         }
     }
 
@@ -29,6 +32,8 @@ extension ReviewRouter: APITargetType {
             return .post
         case .patchReview:
             return .patch
+        case .getDetail:
+            return .get
         }
     }
 
@@ -45,6 +50,8 @@ extension ReviewRouter: APITargetType {
                 bodyEncoding: JSONEncoding.default,
                 urlParameters: ["userId": userId]
             )
+        case .getDetail:
+            return .requestPlain
         }
     }
 }

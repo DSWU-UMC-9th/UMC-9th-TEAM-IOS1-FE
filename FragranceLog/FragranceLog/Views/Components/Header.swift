@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct Header: View {
+    @EnvironmentObject var router: NavigationRouter<MainRoute>
+
     var body: some View {
         // TODO: 네비게이션으로 변경
         HStack {
-            Image(.logoSmall)
+            Button(action: {
+                router.push(.main)
+            }) {
+                Image(.logoSmall)
+            }
 
             Spacer()
 
-            Image(.iconMypage)
+            Button(action: {
+                router.push(.mypage)
+            }) {
+                Image(.iconMypage)
+            }
         }
         .padding(.top, 80)
         .padding(.horizontal, 24)

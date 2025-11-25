@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ReviewButton: View {
     @StateObject var vm: DetailViewModel
-    let perfumeId: Int
 
     var body: some View {
         if vm.isCompleted {
@@ -99,9 +98,9 @@ struct ReviewButton: View {
 
                         Button(action: {
                             if vm.isCompleted {
-                                vm.patchReview(perfumeId: perfumeId, reviewId: 1) // TODO: reviewId
+                                vm.patchReview(reviewId: 1) // TODO: reviewId
                             } else {
-                                vm.postReview(perfumeId: perfumeId)
+                                vm.postReview()
                             }
                             withAnimation {
                                 vm.writeMode.toggle()

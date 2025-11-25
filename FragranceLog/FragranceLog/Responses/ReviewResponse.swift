@@ -8,7 +8,7 @@
 import Foundation
 
 struct ReviewResponse: Codable {
-    let isSuccess: Bool
+    let status: Int
     let code: String
     let message: String
     let data: ReviewResponseData
@@ -16,6 +16,7 @@ struct ReviewResponse: Codable {
 
 struct ReviewResponseData: Codable {
     let id: Int
+    let rating: Int
     let content: String
     let maskedUsername: String
     let updatedDate: String

@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ReviewItem: View {
-    var rating: Double
+    var rating: Int
     var isOwn: Bool = false
     @StateObject var vm: DetailViewModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack {
-                StarRating(size: .medium, fixRating: rating)
+                StarRating(size: .medium, fixRating: Double(rating))
                 Spacer()
                 if isOwn {
                     Button(action: {
