@@ -22,14 +22,19 @@ class DetailViewModel: ObservableObject {
     @Published var imageUrl: String = ""
     @Published var reviewCount: Int = 0
     @Published var averageRating: Double = 0
-    @Published var reviews: [ReviewData] = []
+    @Published var reviews: [ReviewResponseData] = []
+
+    @Published var myReviewId: Int? = nil
+    @Published var currentMaskedUsername: String
+    @Published var myReview: ReviewResponseData? = nil
 
     private let perfumeId: Int
     private let userId: Int = KeychainManager.shared.loadUserId() ?? -1
     private let provider = APIManager.shared.createProvider(for: ReviewRouter.self)
 
-    init(perfumeId: Int) {
+    init(perfumeId: Int, currentMaskedUsername: String = "miju****") {
         self.perfumeId = perfumeId
+        self.currentMaskedUsername = currentMaskedUsername
     }
 
     private var reviewData: ReviewData {
@@ -37,17 +42,29 @@ class DetailViewModel: ObservableObject {
     }
 
     func postReview() {
-        provider.request(.postReview(perfumeId: perfumeId, userId: userId, data: reviewData)) { result in
+        let body = ReviewData(score: score, content: content)
+
+        provider.request(.postReview(perfumeId: perfumeId, userId: userId, data: body)) { [weak self] result in
+            guard let self else { return }
+
             switch result {
             case .success(let response):
                 do {
-                    _ = try JSONDecoder().decode(ReviewResponse.self, from: response.data)
-                    self.isCompleted = true
+                    let data = try JSONDecoder().decode(ReviewResponseData.self, from: response.data)
+
+                    DispatchQueue.main.async {
+                        self.myReviewId = data.id
+                        self.score = data.rating
+                        self.content = data.content
+                        self.isCompleted = true
+                        self.writeMode = false
+                    }
                 } catch {
-                    print("postReview 디코더 오류: \(error)")
+                    print("decode error: \(error)")
                 }
+
             case .failure(let error):
-                print("postReview API 오류: \(error)")
+                print("postReview error: \(error)")
             }
         }
     }
@@ -84,6 +101,17 @@ class DetailViewModel: ObservableObject {
                         self.reviewCount = data.reviewCount
                         self.averageRating = data.averageRating
                         self.reviews = data.reviews
+
+                        if let my = data.reviews.first(where: { $0.maskedUsername == self.currentMaskedUsername }) {
+                            self.myReview = my
+                            self.myReviewId = my.id
+                            self.score = my.rating
+                            self.content = my.content
+                            self.isCompleted = true
+                        } else {
+                            self.myReview = nil
+                            self.isCompleted = false
+                        }
                     }
                 } catch {
                     print("getDetail 디코더 오류: \(error)")

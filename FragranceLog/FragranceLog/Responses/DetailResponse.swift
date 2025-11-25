@@ -23,5 +23,5 @@ struct DetailResponseData: Codable {
     let imageUrl: String
     let reviewCount: Int
     let averageRating: Double
-    let reviews: [ReviewData]
+    let reviews: [ReviewResponseData]
 }

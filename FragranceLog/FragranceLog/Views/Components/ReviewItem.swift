@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ReviewItem: View {
-    var rating: Int
     var isOwn: Bool = false
-    @StateObject var vm: DetailViewModel
+    var item: ReviewResponseData
+    @ObservedObject var vm: DetailViewModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack {
-                StarRating(size: .medium, fixRating: Double(rating))
+                StarRating(size: .medium, fixRating: Double(item.rating))
                 Spacer()
                 if isOwn {
                     Button(action: {
@@ -31,15 +31,15 @@ struct ReviewItem: View {
             }
             .frame(height: 37)
 
-            Text("리뷰 작성 리뷰 작성 리뷰 작성 리뷰 작성 리뷰 작성 리뷰 작성 리뷰 작성 리뷰 작성 리뷰 작성 리뷰 작성 리뷰 작성 리뷰 작성")
+            Text("\(item.content)")
                 .font(.zen16)
                 .padding(.vertical, 10)
 
             HStack {
-                Text("iddd****")
+                Text("\(item.maskedUsername)")
                     .font(.zen16)
                 Spacer()
-                Text("2025. 01. 01")
+                Text("\(item.updatedDate)")
                     .font(.zen16)
             }
             .padding(.vertical, 10)
