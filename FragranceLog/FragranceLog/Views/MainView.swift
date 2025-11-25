@@ -5,12 +5,13 @@
 //  Created by 김미주 on 11/14/25.
 //
 
-import SwiftUI
 import Kingfisher
+import SwiftUI
 
 struct MainView: View {
+    @EnvironmentObject var router: NavigationRouter<MainRoute>
     @StateObject private var viewModel = PerfumeViewModel()
-    
+
     var body: some View {
         ZStack {
             Color.color3
@@ -36,9 +37,8 @@ struct MainView: View {
         .ignoresSafeArea()
         .navigationBarBackButtonHidden()
     }
-    
+
     private var TopGroup: some View {
-        
         VStack(alignment: .leading, spacing: 16) {
             Text("지금 추천하는 향수")
                 .font(.zen24)
@@ -55,7 +55,6 @@ struct MainView: View {
                 TabView {
                     ForEach(Array(viewModel.recommendations.enumerated()), id: \.element.id) { index, item in
                         ZStack(alignment: .bottomLeading) {
-
                             KFImage(URL(string: "https://www.tenma.store\(item.imageUrl)"))
                                 .placeholder {
                                     ProgressView()
@@ -85,19 +84,19 @@ struct MainView: View {
         }
         .padding(.top, 32)
     }
-    
+
     private var ListGroup: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 7) {
                 Text("향수 목록")
                     .font(.zen18)
-                
+
                 Spacer()
-                
+
                 RatingSortFilter()
             }
             .padding(.horizontal, 16)
-        
+
             LazyVGrid(
                 columns: [
                     GridItem(.flexible(), spacing: 24),
@@ -105,8 +104,12 @@ struct MainView: View {
                 ],
                 spacing: 16
             ) {
-                ForEach(0..<10) { _ in
-                    PerfumeItem(rating: 4.3, reviewCount: 6)
+                ForEach(0 ..< 10) { _ in
+                    Button(action: {
+                        router.push(.detail(perfumeId: 4))
+                    }) {
+                        PerfumeItem(rating: 4.3, reviewCount: 6)
+                    }
                 }
             }
             .padding(.horizontal, 27)

@@ -58,6 +58,8 @@ struct StarRating: View {
                         rating = index + 1
                     }) {
                         Image(index < rating ? size.fill : size.empty)
+                            .frame(width: 38, height: 40)
+                            .glassEffect()
                     }
                     .buttonStyle(.plain)
                 }

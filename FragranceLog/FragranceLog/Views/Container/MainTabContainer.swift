@@ -9,16 +9,22 @@ import SwiftUI
 
 struct MainTabContainer: View {
     @StateObject private var router = NavigationRouter<MainRoute>()
-    
+
     var body: some View {
-        MainView()
-            .navigationDestination(for: MainRoute.self) { route in
-                switch route {
-                case .main:
-                    MainView()
+        NavigationStack(path: $router.path) {
+            MainView()
+                .navigationDestination(for: MainRoute.self) { route in
+                    switch route {
+                    case .main:
+                        MainView()
+                    case .detail(let perfumeId):
+                        DetailView(perfumeId: perfumeId)
+                    case .mypage:
+                        MypageView()
+                    }
                 }
-            }
-            .environmentObject(router)
+        }
+        .environmentObject(router)
     }
 }
 

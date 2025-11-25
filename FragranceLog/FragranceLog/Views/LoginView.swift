@@ -31,17 +31,13 @@ struct LoginView: View {
                 ButtonGroup
                 
                 Spacer()
-                
             }
             .padding(.top, 115)
         }
         .foregroundStyle(.black)
         .ignoresSafeArea()
-        .onChange(of: viewModel.isLoginSuccess) { success in
-            print("userId:", KeychainManager.shared.loadUserId() ?? -1)
-            if success {
-                router.push(.main)
-            }
+        .fullScreenCover(isPresented: $viewModel.isLoginSuccess) {
+            MainTabContainer()
         }
         .navigationBarBackButtonHidden()
     }
@@ -58,14 +54,14 @@ struct LoginView: View {
     
     private var InputGroup: some View {
         VStack(spacing: 16) {
-            InputView{
+            InputView {
                 TextField("아이디를 입력하세요", text: $viewModel.username)
                     .font(.robotoLight12)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .textInputAutocapitalization(.never)
             }
-            InputView{
+            InputView {
                 SecureField("비밀번호를 입력하세요", text: $viewModel.password)
                     .font(.robotoLight12)
                     .autocapitalization(.none)
@@ -96,7 +92,6 @@ struct LoginView: View {
     
     private var ButtonGroup: some View {
         VStack(alignment: .center, spacing: 24) {
-            
             Button(action: {
                 viewModel.login()
             }) {
@@ -135,7 +130,6 @@ struct LoginView: View {
                 }
             }
 
-            
             HStack(spacing: 8) {
                 Rectangle()
                     .fill(.color8)

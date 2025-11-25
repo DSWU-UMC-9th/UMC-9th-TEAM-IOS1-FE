@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardingTabContainer: View {
     @StateObject private var router = NavigationRouter<OnboardingRoute>()
-    
+
     var body: some View {
         NavigationStack(path: $router.path) {
             Group {
@@ -24,8 +24,6 @@ struct OnboardingTabContainer: View {
                     LoginView().environmentObject(router)
                 case .signup:
                     SignupView().environmentObject(router)
-                case .main:
-                    MainTabContainer()
                 }
             }
         }
