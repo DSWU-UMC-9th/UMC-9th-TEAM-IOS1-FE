@@ -104,9 +104,9 @@ struct DetailView: View {
             VStack(spacing: 16) {
                 ReviewButton(vm: vm, perfumeId: perfumeId)
 
-                ReviewItem(rating: 3.5)
+                ReviewItem(rating: 3.5, vm: vm)
 
-                ReviewItem(rating: 4.5)
+                ReviewItem(rating: 4.5, vm: vm)
             }
         }
         .padding(.horizontal, 12)
