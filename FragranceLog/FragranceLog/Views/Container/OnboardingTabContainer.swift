@@ -24,6 +24,8 @@ struct OnboardingTabContainer: View {
                     LoginView().environmentObject(router)
                 case .signup:
                     SignupView().environmentObject(router)
+                case .main:
+                    MainTabContainer()
                 }
             }
         }
