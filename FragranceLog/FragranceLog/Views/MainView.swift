@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MainView: View {
+    @StateObject private var viewModel = PerfumeViewModel()
+    
     var body: some View {
         ZStack {
             Color.color3
@@ -26,52 +29,59 @@ struct MainView: View {
                 .scrollIndicators(.hidden)
             }
         }
+        .onAppear {
+            viewModel.fetchRecommendations()
+        }
         .foregroundStyle(.black)
         .ignoresSafeArea()
     }
     
     private var TopGroup: some View {
         
-        let recommended = [
-            (rank: 1, name: "티어즈 프롬 더 문", image: "img_perfume1"),
-            (rank: 2, name: "스프링타임 인 파크", image: "img_perfume1"),
-            (rank: 3, name: "오 드 뚜왈렛 오데썽", image: "img_perfume1")
-        ]
-        
-        return VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 16) {
             Text("지금 추천하는 향수")
                 .font(.zen24)
-            
-            TabView {
-                ForEach(recommended, id: \.rank) { item in
-                    ZStack(alignment: .bottomLeading) {
-                        Image(item.image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 205)
-                            .frame(maxWidth: .infinity)
-                            .cornerRadius(8)
+                .padding(.horizontal, 16)
 
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("TOP \(item.rank).")
-                                .font(.zen16)
-                                .foregroundColor(.color1)
+            if viewModel.recommendations.isEmpty {
+                Rectangle()
+                    .fill(.gray.opacity(0.2))
+                    .frame(height: 205)
+                    .cornerRadius(8)
+                    .overlay(Text("불러오는 중..."))
+                    .padding(.horizontal, 16)
+            } else {
+                TabView {
+                    ForEach(Array(viewModel.recommendations.enumerated()), id: \.element.id) { index, item in
+                        ZStack(alignment: .bottomLeading) {
 
-                            Text(item.name)
-                                .font(.zen16)
-                                .foregroundColor(.color1)
+                            KFImage(URL(string: "https://www.tenma.store\(item.imageUrl)"))
+                                .placeholder {
+                                    ProgressView()
+                                }
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 205)
+                                .frame(maxWidth: .infinity)
+                                .cornerRadius(8)
+
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("TOP \(index + 1).")
+                                Text(item.name)
+                            }
+                            .font(.robotoRegular16)
+                            .foregroundColor(.color1)
+                            .padding(.leading, 20)
+                            .padding(.bottom, 86)
                         }
-                        .padding(.leading, 20)
-                        .padding(.bottom, 86)
                     }
                 }
+                .frame(height: 205)
+                .tabViewStyle(.page)
+                .indexViewStyle(.page(backgroundDisplayMode: .never))
+                .padding(.horizontal, 16)
             }
-            .frame(height: 205)
-            .tabViewStyle(.page)
-            .indexViewStyle(.page(backgroundDisplayMode: .never))
-            .tint(.color1)
         }
-        .padding(.horizontal, 16)
         .padding(.top, 32)
     }
     
