@@ -11,10 +11,9 @@ struct Header: View {
     @EnvironmentObject var router: NavigationRouter<MainRoute>
 
     var body: some View {
-        // TODO: 네비게이션으로 변경
         HStack {
             Button(action: {
-                router.push(.main)
+                router.reset()
             }) {
                 Image(.logoSmall)
             }

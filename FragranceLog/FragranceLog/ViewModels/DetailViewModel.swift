@@ -22,7 +22,7 @@ class DetailViewModel: ObservableObject {
     @Published var imageUrl: String = ""
     @Published var reviewCount: Int = 0
     @Published var averageRating: Double = 0
-    @Published var reviews: [ReviewData] = []
+    @Published var reviews: [ReviewResponseData] = []
 
     private let perfumeId: Int
     private let userId: Int = KeychainManager.shared.loadUserId() ?? -1
