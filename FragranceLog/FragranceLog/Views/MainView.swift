@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var router: NavigationRouter<MainRoute>
-    @StateObject private var viewModel = PerfumeViewModel()
+    @StateObject private var viewModel = MainViewModel()
 
     var body: some View {
         ZStack {
@@ -32,6 +32,7 @@ struct MainView: View {
         }
         .onAppear {
             viewModel.fetchRecommendations()
+            viewModel.fetchSortedPerfumes(sort: "avgRateDesc")
         }
         .foregroundStyle(.black)
         .ignoresSafeArea()
@@ -93,7 +94,9 @@ struct MainView: View {
 
                 Spacer()
 
-                RatingSortFilter()
+                RatingSortFilter { sortKey in
+                    viewModel.fetchSortedPerfumes(sort: sortKey)
+                }
             }
             .padding(.horizontal, 16)
 
@@ -104,11 +107,20 @@ struct MainView: View {
                 ],
                 spacing: 16
             ) {
-                ForEach(0 ..< 10) { _ in
-                    Button(action: {
-                        router.push(.detail(perfumeId: 4))
-                    }) {
-                        PerfumeItem(rating: 4.3, reviewCount: 6)
+                if viewModel.isSortedLoading {
+                    ProgressView()
+                } else {
+                    ForEach(viewModel.sortedList) { perfume in
+                        Button {
+                            router.push(.detail(perfumeId: perfume.id))
+                        } label: {
+                            PerfumeItem(
+                                imageUrl: perfume.imageUrl,
+                                name: perfume.name,
+                                rating: perfume.averageRating,
+                                reviewCount: perfume.reviewCount
+                            )
+                        }
                     }
                 }
             }
@@ -119,4 +131,5 @@ struct MainView: View {
 
 #Preview {
     MainView()
+        .environmentObject(NavigationRouter<MainRoute>())
 }

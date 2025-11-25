@@ -10,18 +10,27 @@ import SwiftUI
 struct RatingSortFilter: View {
     @State private var isExpanded = false
     @State private var selected = "평점 높은 순"
+    
+    let onSelect: (String) -> Void
 
-    private let options = ["평점 높은 순", "평점 낮은 순"]
+    private let mapping = [
+        "평점 높은 순": "avgRateDesc",
+        "평점 낮은 순": "avgRateAsc"
+    ]
 
     var body: some View {
 
-        let otherOption = options.first { $0 != selected }!
+        let otherOption = (selected == "평점 높은 순") ? "평점 낮은 순" : "평점 높은 순"
 
         ZStack(alignment: .topLeading) {
             VStack(spacing: 0) {
                 if isExpanded {
                     Button {
                         selected = otherOption
+
+                        if let sortKey = mapping[selected] {
+                            onSelect(sortKey)
+                        }
                         withAnimation(.easeOut(duration: 0.25)) {
                             isExpanded = false
                         }
@@ -78,5 +87,7 @@ struct RatingSortFilter: View {
 }
 
 #Preview {
-    RatingSortFilter()
+    RatingSortFilter { sortKey in
+        print("선택된 정렬키: \(sortKey)")
+    }
 }

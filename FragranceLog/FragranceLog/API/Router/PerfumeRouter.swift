@@ -11,6 +11,7 @@ import Alamofire
 
 enum PerfumeRouter {
     case getRecommendations // 추천 향수 조회
+    case getSortedPerfumes(sort: String)  // 필터링된 향수 목록 조회
 }
 
 extension PerfumeRouter: APITargetType {
@@ -19,12 +20,14 @@ extension PerfumeRouter: APITargetType {
         switch self {
         case .getRecommendations:
             return "/perfumes/recommendations"
+        case .getSortedPerfumes:
+            return "/perfumes/sorted"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .getRecommendations:
+        case .getRecommendations, .getSortedPerfumes:
             return .get
         }
     }
@@ -33,6 +36,11 @@ extension PerfumeRouter: APITargetType {
         switch self {
         case .getRecommendations:
             return .requestPlain
+        case .getSortedPerfumes(let sort):
+            return .requestParameters(
+                parameters: ["sort": sort],
+                encoding: URLEncoding.queryString
+            )
         }
     }
 }
