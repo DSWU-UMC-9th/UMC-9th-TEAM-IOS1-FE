@@ -9,8 +9,12 @@ import Foundation
 import Moya
 import Combine
 
-class PerfumeViewModel: ObservableObject {
+class MainViewModel: ObservableObject {
     @Published var recommendations: [RecommendPerfume] = []
+    
+    @Published var sortedList: [SortedPerfume] = []
+    @Published var isSortedLoading = false
+    
     @Published var isLoading = false
     @Published var errorMessage: String?
 
@@ -41,6 +45,31 @@ class PerfumeViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.errorMessage = error.localizedDescription
                 }
+            }
+        }
+    }
+    
+    func fetchSortedPerfumes(sort: String) {
+        isSortedLoading = true
+
+        provider.request(.getSortedPerfumes(sort: sort)) { result in
+            DispatchQueue.main.async {
+                self.isSortedLoading = false
+            }
+
+            switch result {
+            case .success(let response):
+                do {
+                    let decoded = try JSONDecoder().decode(SortedPerfumeResponse.self, from: response.data)
+                    DispatchQueue.main.async {
+                        self.sortedList = decoded.data
+                    }
+                } catch {
+                    print("정렬 디코딩 실패:", error)
+                }
+
+            case .failure(let error):
+                print("정렬 호출 실패:", error)
             }
         }
     }
