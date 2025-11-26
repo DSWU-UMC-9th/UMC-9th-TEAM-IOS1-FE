@@ -27,8 +27,8 @@ struct MypageView: View {
                         .font(.zen24)
                     Spacer()
 
-                    RatingSortFilter { sortKey in
-                        print("선택된 정렬키: \(sortKey)")
+                    RatingSortFilter(sortType: .new) { sortKey in
+                        vm.getReviews(order: sortKey)
                     }
                 }
                 .padding(.horizontal, 16)
