@@ -11,7 +11,7 @@ import Moya
 
 class MypageViewModel: ObservableObject {
     @Published var id: String = ""
-    @Published var reviews: [MyReviewResponseData] = []
+    @Published var reviews: [ReviewResponseData] = []
 
     private let provider = APIManager.shared.createProvider(for: MyRouter.self)
 

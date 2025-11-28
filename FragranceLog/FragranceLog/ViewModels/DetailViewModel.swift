@@ -25,16 +25,14 @@ class DetailViewModel: ObservableObject {
     @Published var reviews: [ReviewResponseData] = []
 
     @Published var myReviewId: Int? = nil
-    @Published var currentMaskedUsername: String
     @Published var myReview: ReviewResponseData? = nil
 
     private let perfumeId: Int
     private let userId: Int = KeychainManager.shared.loadUserId() ?? -1
     private let provider = APIManager.shared.createProvider(for: ReviewRouter.self)
 
-    init(perfumeId: Int, currentMaskedUsername: String = "miju****") {
+    init(perfumeId: Int) {
         self.perfumeId = perfumeId
-        self.currentMaskedUsername = currentMaskedUsername
     }
 
     private var reviewData: ReviewData {
@@ -50,9 +48,11 @@ class DetailViewModel: ObservableObject {
             switch result {
             case .success(let response):
                 do {
-                    let data = try JSONDecoder().decode(ReviewResponseData.self, from: response.data)
+                    let decodedData = try JSONDecoder().decode(ReviewResponse.self, from: response.data)
+                    let data = decodedData.data
 
                     DispatchQueue.main.async {
+                        self.myReview = data
                         self.myReviewId = data.id
                         self.score = data.rating
                         self.content = data.content
@@ -74,7 +74,18 @@ class DetailViewModel: ObservableObject {
             switch result {
             case .success(let response):
                 do {
-                    _ = try JSONDecoder().decode(ReviewResponse.self, from: response.data)
+                    let decodedData = try JSONDecoder().decode(ReviewResponse.self, from: response.data)
+                    let data = decodedData.data
+
+                    DispatchQueue.main.async {
+                        self.myReviewId = data.id
+                        self.score = data.rating
+                        self.content = data.content
+                        self.isCompleted = true
+                        self.writeMode = false
+
+                        self.getDetail()
+                    }
                 } catch {
                     print("patchReview 디코더 오류: \(error)")
                 }
@@ -102,7 +113,7 @@ class DetailViewModel: ObservableObject {
                         self.averageRating = data.averageRating
                         self.reviews = data.reviews
 
-                        if let my = data.reviews.first(where: { $0.maskedUsername == self.currentMaskedUsername }) {
+                        if let my = data.reviews.first(where: { $0.userId == self.userId }) {
                             self.myReview = my
                             self.myReviewId = my.id
                             self.score = my.rating

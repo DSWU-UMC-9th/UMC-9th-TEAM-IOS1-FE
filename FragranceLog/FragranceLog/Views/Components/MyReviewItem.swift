@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyReviewItem: View {
-    var item: MyReviewResponseData
+    var item: ReviewResponseData
     @ObservedObject var vm: MypageViewModel
 
     var body: some View {

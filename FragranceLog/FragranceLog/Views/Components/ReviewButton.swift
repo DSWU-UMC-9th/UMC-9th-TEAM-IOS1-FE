@@ -66,8 +66,6 @@ struct ReviewButton: View {
             }
 
             HStack {
-                Text(vm.currentMaskedUsername)
-
                 Spacer()
 
                 Button(action: {
@@ -121,7 +119,7 @@ struct ReviewButton: View {
                 .padding(.vertical, 10)
 
             HStack {
-                Text(vm.currentMaskedUsername)
+                Text(vm.myReview?.maskedUsername ?? "")
                     .font(.zen16)
                 Spacer()
                 Text(vm.myReview?.updatedDate ?? "—")
