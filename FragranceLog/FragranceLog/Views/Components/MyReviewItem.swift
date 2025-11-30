@@ -1,21 +1,31 @@
 //
-//  ReviewItem.swift
+//  MyReviewItem.swift
 //  FragranceLog
 //
-//  Created by 김미주 on 11/17/25.
+//  Created by 김미주 on 11/26/25.
 //
 
 import SwiftUI
 
-struct ReviewItem: View {
+struct MyReviewItem: View {
     var item: ReviewResponseData
-    @ObservedObject var vm: DetailViewModel
+    @ObservedObject var vm: MypageViewModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack {
                 StarRating(size: .medium, fixRating: Double(item.rating))
                 Spacer()
+
+                Button(action: {
+                    // TODO: action
+                }) {
+                    Text("수정하기")
+                        .foregroundStyle(.color1)
+                        .font(.robotoRegular16)
+                        .frame(width: 70, height: 34)
+                        .glassEffect(in: .rect(cornerRadius: 8))
+                }
             }
             .frame(height: 37)
 
@@ -41,6 +51,7 @@ struct ReviewItem: View {
     }
 }
 
+//
 // #Preview {
-//    ReviewItem(rating: 3.5)
+//    MyReviewItem()
 // }

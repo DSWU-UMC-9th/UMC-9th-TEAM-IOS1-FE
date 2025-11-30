@@ -94,7 +94,7 @@ struct MainView: View {
 
                 Spacer()
 
-                RatingSortFilter { sortKey in
+                RatingSortFilter(sortType: .star) { sortKey in
                     viewModel.fetchSortedPerfumes(sort: sortKey)
                 }
             }

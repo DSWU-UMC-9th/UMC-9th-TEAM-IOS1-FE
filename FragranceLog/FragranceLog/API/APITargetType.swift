@@ -15,17 +15,25 @@ extension APITargetType {
     var baseURL: URL {
         return URL(string: Config.baseURL)!
     }
-    
+
     var headers: [String: String]? {
+        var baseHeaders: [String: String] = [:]
+
         switch task {
         case .requestJSONEncodable, .requestParameters:
-            return ["Content-Type": "application/json"]
+            baseHeaders["Content-Type"] = "application/json"
         case .uploadMultipart:
-            return ["Content-Type": "multipart/form-data"]
+            baseHeaders["Content-Type"] = "multipart/form-data"
         default:
-            return nil
+            break
         }
+
+        if let token = KeychainManager.shared.loadToken() {
+            baseHeaders["Authorization"] = "Bearer \(token)"
+        }
+
+        return baseHeaders.isEmpty ? nil : baseHeaders
     }
-    
+
     var validationType: ValidationType { .successCodes }
 }

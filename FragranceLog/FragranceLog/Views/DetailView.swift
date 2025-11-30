@@ -5,6 +5,7 @@
 //  Created by 김미주 on 11/14/25.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct DetailView: View {
@@ -76,7 +77,10 @@ struct DetailView: View {
 
     private var InfoGroup: some View {
         HStack(alignment: .top, spacing: 38) {
-            Image(.imgPerfume1)
+            KFImage(URL(string: "https://www.tenma.store\(vm.imageUrl)"))
+                .placeholder {
+                    ProgressView()
+                }
                 .resizable()
                 .scaledToFill()
                 .frame(width: 155, height: 230)

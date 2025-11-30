@@ -20,4 +20,5 @@ struct ReviewResponseData: Codable {
     let content: String
     let maskedUsername: String
     let updatedDate: String
+    let userId: Int?
 }
