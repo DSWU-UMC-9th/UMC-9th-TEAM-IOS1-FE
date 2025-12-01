@@ -1,66 +1,45 @@
-<img width="178" height="77" alt="Color=Dark" src="https://github.com/user-attachments/assets/6c49d89a-f574-4783-9644-bd9a5adecf22" /> 
+# <img width="30" alt="fog" src="https://github.com/user-attachments/assets/2d12e03f-89a3-4a27-ae61-a322a0cfcb3a" /> 프로젝트 소개
 
-# 프로젝트 소개
-
-###  ✨ AERA
+###  🎬 Fragrance Log
 | 향수 리뷰 & 추천 서비스
 
-### 🌟 주요 기능 정리
-
-- 🔑 **로그인 / 회원가입**
-  - 자체 인증 기반 계정 생성 및 로그인
-
-- 🏠 **메인 페이지**
-  - 인기 향수 / 평점 순 향수 리스트 제공
-
-- 🧴 **상세페이지**
-  - 향수명, 가격, 평점, 설명 확인
-  - 리뷰 작성 기능 제공
-
-- 📘 **마이페이지**
-  - 닉네임 및 내가 작성한 리뷰 조회
-  - 최신순 / 오래된 순 정렬 기능
+### 🔍 주요 기능
+- 🔐 **로그인/회원가입** : 서비스 자체 로그인/회원가입 기능
+- 🎞️ **향수 리스트** : 현재 추천 향수, 리뷰 순 향수 리스트 제공
+- 🍿 **향수 상세 페이지** : 향수 상세 정보 및 리뷰 확인
+- 📝 **리뷰 작성 및 공유** : 감상을 쉽게 기록하고 공유 가능
+- 📌 **마이페이지** : 내가 쓴 리뷰 확인
 </br>
 
-# 👥 팀 소개
-| **권예원** <br> [GitHub](https://github.com/e0ng) | **정서영** <br> [GitHub](https://github.com/mzxxzysy)| **한정현** <br> [GitHub](https://github.com/JungHyunHann) |
-|:-------------------------------------------:|:--------------------------------------------:|:---------------------------------------------:|
-| *(사진)* | *(사진)* | *(사진)* |
-| **상세페이지 UI** <br> **마이페이지 UI** <br> **마이페이지 API 연동** | **회원가입** <br> **로그인** | **메인 페이지 UI** <br> **상세 페이지 API 연동** |
+# 👋 팀원 소개
 
+| 김미주 [(@alwn8918)](https://github.com/alwn8918) | 황민지 [(@hmj6589)](https://github.com/hmj6589) |
+|:-----------------------------------------------------:|:-----------------------------------------------------:|
+| ![김미주](https://avatars.githubusercontent.com/u/133081015?v=4) | ![황민지](https://avatars.githubusercontent.com/u/139426988?v=4) | 
+| 상세페이지, 마이페이지 | 회원가입/로그인, 메인페이지 |
 </br>
 
 # 🛠️ 사용 스택 및 라이브러리
-- **SwiftUI** — 전체 UI 구성  
-- **MVVM 패턴** — 화면·데이터 분리  
-- **Moya + Alamofire** — 서버 API 통신  
-- **Combine** — 비동기 데이터 처리  
-- **Keychain** — 로그인 토큰 및 사용자 정보 저장  
-- **AsyncImage** — 서버 이미지 로딩  
-- **GeometryReader** — 드롭다운 위치 계산 
+- ![Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white)  ![SwiftUI](https://img.shields.io/badge/SwiftUI-0065fd?style=for-the-badge&logo=Swift&logoColor=white)
+
+- **Moya** : 네트워크 레이어를 모듈화하고, API 엔드포인트를 enum 기반으로 관리하기 위한 추상화 네트워킹 라이브러리  
+- **KingFisher**: 비동기적으로 네트워크 이미지를 다운로드하고 캐싱하는 오픈 소스 Swift 라이브러리
 
 </br>
 
 # 💻 시연 영상
 <a href="https://youtu.be/FrTnY7UL8wQ" target="_blank">
   <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" width="26" style="vertical-align: middle;"/>
-  시연 영상
+  시연 영상 보러가기
 </a>
 
 </br>
 </br>
 
 # ✨ 구현 화면
-| 로그인 | 회원가입 |
-|-------|----------|
-| <img width="300" src="https://github.com/user-attachments/assets/7d6f5d2b-e319-4605-af96-eb09c62b2c4e" /> | <img width="300" src="https://github.com/user-attachments/assets/a5a34617-1c79-469e-ab58-fe888c99c22f" /> |
-
-| 메인 페이지 | 마이페이지 |
-|-------------|------------|
-| <img width="300" src="https://github.com/user-attachments/assets/489e462a-f237-4e65-97ec-8f566e3a7f44" /> | <img width="300" src="https://github.com/user-attachments/assets/8d56d218-6f61-4c6d-9f43-437778acd1f9" /> |
-
-| 향수 상세 | 리뷰 작성 |
-|-----------|-----------|
-| <img width="300" src="https://github.com/user-attachments/assets/14bc5eed-7b43-4088-82e6-850f2f2406bc" /> | <img width="300" src="https://github.com/user-attachments/assets/3ebc5c55-866f-41ab-b711-dff556b5125a" /> |
-
+| Title         | Img                                   | Title         | Img                                   |
+| ------------ | ---------------------------------------- | ------------ | ---------------------------------------- |
+| 로그인 | <img width="1206" height="2622" alt="image" src="https://github.com/user-attachments/assets/8143ec0a-7045-450c-bdda-f5e874d808d7" /> | 회원가입 | <img width="1206" height="2622" alt="image" src="https://github.com/user-attachments/assets/8367f139-1885-411c-a2d8-e908f53b0f11" /> |
+| 메인 | <img width="1206" height="2622" alt="image" src="https://github.com/user-attachments/assets/b2b5e473-8f08-48b9-af30-0edd875a257b" /> | 마이페이지 | <img width="1206" height="2622" alt="image" src="https://github.com/user-attachments/assets/de81e4fb-9af4-466a-8be5-487fc4acc4a9" /> |
+| 향수 상세 | <img width="1206" height="2622" alt="image" src="https://github.com/user-attachments/assets/490ba1dd-6a99-45d5-80e4-760b624937cc" /> | 리뷰 작성 | <img width="1206" height="2622" alt="image" src="https://github.com/user-attachments/assets/1c08ce10-6ba9-4423-8cfb-9d3e31bab336" /> |
 
